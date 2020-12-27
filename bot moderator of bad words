@@ -1,0 +1,19 @@
+
+
+import telebot
+from telebot import types
+
+bot = telebot.TeleBot('токен')
+
+mats = ["маты"]
+@bot.message_handler(content_types=["text"])
+def delete_messages(message):
+  username = "@" + str(message.from_user.username)
+  for mat in mats:
+    if mat in message.text.lower():
+      bot.delete_message(message.chat.id, message.message_id)
+      bot.send_message(message.chat.id, username + ", нельзя материться!")
+
+bot.polling(none_stop=True)
+
+ 
